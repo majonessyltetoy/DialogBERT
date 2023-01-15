@@ -45,8 +45,8 @@ class DialogTransformerDataset(data.Dataset):
         self.perm_list = [list(itertools.permutations(range(L))) for L in range(1, max_num_utts+1)]
         print("loading data...")
         table = tables.open_file(file_path)
-        self.contexts = table.get_node('/sentences')[:].astype(np.long)
-        #self.knowlege = table.get_node('/knowledge')[:].astype(np.long)
+        self.contexts = table.get_node('/sentences')[:].astype(np.longlong)
+        #self.knowlege = table.get_node('/knowledge')[:].astype(np.longlong)
         self.index = table.get_node('/indices')[:]
         self.data_len = self.index.shape[0]
         print("{} entries".format(self.data_len))
@@ -96,7 +96,7 @@ class DialogTransformerDataset(data.Dataset):
         
         return context, response #, knowlege
     
-    def list2array(self, L, d1_len, d2_len=0, d3_len=0, dtype=np.long, pad_idx=0):
+    def list2array(self, L, d1_len, d2_len=0, d3_len=0, dtype=np.longlong, pad_idx=0):
         '''  convert a list to an array or matrix  '''            
         def list_dim(a):
             if type(a)!=list: return 0
